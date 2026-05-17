@@ -1,0 +1,26 @@
+{
+  "HF_REPO_ID": "AshishTatapuzha/engine-predictive-maintenance-dataset",
+  "HF_DATA_PATH": "data/engine_data.csv",
+  "PROJECT_ROOT": "/root/ashiravi/predictive_maintenance_project",
+  "LOCAL_DATA_FILE": "/root/ashiravi/predictive_maintenance_project/data/engine_data.csv",
+  "HF_MODEL_REPO_ID": "AshishTatapuzha/engine-predictive-maintenance-model",
+  "HF_SPACE_REPO_ID": "AshishTatapuzha/engine-predictive-maintenance-space",
+  "MODEL_ARTIFACT_DIR": "/root/ashiravi/predictive_maintenance_project/model_artifacts",
+  "DEPLOYMENT_DIR": "/root/ashiravi/predictive_maintenance_project/deployment/hf_space",
+  "MODEL_FILE_NAME": "engine_condition_model.joblib",
+  "FEATURE_COLUMNS_FILE_NAME": "feature_columns.json",
+  "LABEL_MAPPING_FILE_NAME": "label_mapping.json",
+  "APP_PORT": 7860,
+  "FEATURE_COLUMNS": [
+    "Engine rpm",
+    "Lub oil pressure",
+    "Fuel pressure",
+    "Coolant pressure",
+    "lub oil temp",
+    "Coolant temp"
+  ],
+  "LABEL_MAPPING": {
+    "0": "Normal",
+    "1": "Faulty"
+  }
+}

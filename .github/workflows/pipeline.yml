@@ -1,0 +1,148 @@
+name: predictive-maintenance-ci-cd
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: predictive-maintenance-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  PYTHON_VERSION: "3.10"
+  SPACE_APP_DIR: "deployment/hf_space"
+  HF_MODEL_REPO_ID: "AshishTatapuzha/engine-predictive-maintenance-best-model"
+  HF_SPACE_REPO_ID: "AshishTatapuzha/engine-predictive-maintenance-space"
+
+jobs:
+  validate-model-repo:
+    name: Validate Hugging Face Model Repository
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Set up Python
+      # No checkout / no pip cache: this job only calls the HF Hub API
+      # to validate the registered model repository.
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      # Step 2: Install only the package needed to inspect the model repo
+      - name: Install validation dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install huggingface_hub
+
+      # Step 3: Validate that the registered model repository contains required files
+      - name: Validate model repository contents
+        shell: bash
+        run: |
+          python - <<'PY'
+          import os
+          from huggingface_hub import list_repo_files
+
+          repo_id = os.environ["HF_MODEL_REPO_ID"]
+
+          expected_files = [
+              "best_model.joblib",
+              "feature_columns.json",
+              "best_model_metrics.json",
+              "best_model_params.json",
+              "model_comparison.csv",
+              "best_model_classification_report.csv",
+              "best_model_feature_importance.csv",
+              "all_model_tuning_results.csv",
+              "README.md",
+              "requirements.txt",
+          ]
+
+          repo_files = list_repo_files(repo_id, repo_type="model")
+          missing_files = [f for f in expected_files if f not in repo_files]
+
+          if missing_files:
+              raise ValueError(f"Missing files in model repository: {missing_files}")
+
+          print("Model repository validation passed.")
+          print("Model Hub URL:", f"https://huggingface.co/{repo_id}")
+          print("Available files:", repo_files)
+          PY
+
+  validate-hf-space:
+    name: Validate Hugging Face Space Deployment Files
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      # Step 3: Install deployment dependencies from the HF Space folder
+      - name: Install HF Space dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r "${SPACE_APP_DIR}/requirements.txt"
+          pip install huggingface_hub
+
+      # Step 4: Check that all required deployment files exist
+      - name: Check required HF Space files
+        run: |
+          test -f "${SPACE_APP_DIR}/app.py"
+          test -f "${SPACE_APP_DIR}/requirements.txt"
+          test -f "${SPACE_APP_DIR}/README.md"
+          test -f "${SPACE_APP_DIR}/push_to_hf_space.py"
+          test -f "${SPACE_APP_DIR}/Dockerfile"
+          test -f "${SPACE_APP_DIR}/.dockerignore"
+
+      # Step 5: Run syntax checks on the Streamlit app and deployment script
+      - name: Syntax check deployment files
+        run: |
+          python -m py_compile "${SPACE_APP_DIR}/app.py"
+          python -m py_compile "${SPACE_APP_DIR}/push_to_hf_space.py"
+
+  deploy-to-hf-space:
+    name: Deploy Streamlit App to Hugging Face Space
+    runs-on: ubuntu-latest
+    needs: [validate-model-repo, validate-hf-space]
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+          cache: pip
+
+      # Step 3: Install dependencies needed for deployment
+      - name: Install deployment dependencies
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r "${SPACE_APP_DIR}/requirements.txt"
+          pip install huggingface_hub
+
+      # Step 4: Deploy the Hugging Face Space using your existing script
+      - name: Deploy to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE_REPO_ID: ${{ env.HF_SPACE_REPO_ID }}
+        run: |
+          python "${SPACE_APP_DIR}/push_to_hf_space.py"

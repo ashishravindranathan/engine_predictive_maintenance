@@ -1,0 +1,18 @@
+{
+    "CV Best Accuracy": 0.690785679921659,
+    "CV Best Precision": 0.705858526574826,
+    "CV Best Recall": 0.6542525573309949,
+    "CV Best F1": 0.679061188681803,
+    "CV Best F2": 0.663951953699797,
+    "CV Best ROC AUC": 0.7605727452084164,
+    "CV Best Balanced Accuracy": 0.6907859609897719,
+    "Test Accuracy": 0.6352700281545943,
+    "Test Precision": 0.7316964285714286,
+    "Test Recall": 0.6654486398700772,
+    "Test F1": 0.6970019136721242,
+    "Test F2": 0.67772080714522,
+    "Test ROC AUC": 0.6700048529876521,
+    "Test Balanced Accuracy": 0.6246218268602464,
+    "Tuning Time (seconds)": 212.39,
+    "Model": "Random Forest"
+}

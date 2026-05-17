@@ -1,0 +1,5 @@
+,Engine rpm,Engine rpm,Engine rpm,Lub oil pressure,Lub oil pressure,Lub oil pressure,Fuel pressure,Fuel pressure,Fuel pressure,Coolant pressure,Coolant pressure,Coolant pressure,lub oil temp,lub oil temp,lub oil temp,Coolant temp,Coolant temp,Coolant temp
+,mean,median,std,mean,median,std,mean,median,std,mean,median,std,mean,median,std,mean,median,std
+Engine Condition Label,,,,,,,,,,,,,,,,,,
+Faulty,736.297,690.0,249.302,3.351,3.214,1.025,6.901,6.421,2.777,2.316,2.158,1.005,77.42,76.66,3.016,78.207,78.101,6.332
+Normal,884.995,843.0,271.723,3.222,3.067,1.01,6.236,5.824,2.682,2.368,2.182,1.087,78.024,77.09,3.232,78.803,78.769,5.968

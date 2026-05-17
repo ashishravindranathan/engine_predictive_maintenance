@@ -1,0 +1,8 @@
+# Large model files (hosted on Hugging Face instead)
+*.joblib
+model_artifacts/*.joblib
+
+# Python
+__pycache__/
+*.pyc
+.ipynb_checkpoints/

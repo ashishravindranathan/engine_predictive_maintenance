@@ -1,0 +1,16 @@
+{
+  "decision_threshold": 0.26666666666666666,
+  "recall_floor": 0.95,
+  "selection_rule": "highest threshold with Recall >= 0.95",
+  "tuned_metrics": {
+    "Threshold": 0.26666666666666666,
+    "Test Accuracy": 0.6429485538776555,
+    "Test Precision": 0.6473509933774835,
+    "Test Recall": 0.9524969549330086,
+    "Test F1": 0.7708230655495318,
+    "Test F2": 0.8704363312555654,
+    "Test ROC AUC": 0.6700048529876521,
+    "Test Balanced Accuracy": 0.5337277018432356
+  },
+  "model_name": "Random Forest"
+}

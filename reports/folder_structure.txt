@@ -1,0 +1,77 @@
+predictive_maintenance_project
+├── .github
+│   └── workflows
+│       └── pipeline.yml
+├── data
+│   └── engine_data.csv
+├── deployment
+│   └── hf_space
+│       ├── .dockerignore
+│       ├── app.py
+│       ├── deployment_config.json
+│       ├── Dockerfile
+│       ├── push_to_hf_space.py
+│       ├── README.md
+│       └── requirements.txt
+├── eda_outputs
+│   ├── bivariate_coolant_pressure_vs_target.png
+│   ├── bivariate_coolant_temp_vs_target.png
+│   ├── bivariate_engine_rpm_vs_target.png
+│   ├── bivariate_fuel_pressure_vs_target.png
+│   ├── bivariate_group_summary.csv
+│   ├── bivariate_lub_oil_pressure_vs_target.png
+│   ├── bivariate_lub_oil_temp_vs_target.png
+│   ├── correlation_heatmap.png
+│   ├── data_overview_summary.csv
+│   ├── feature_target_correlations.csv
+│   ├── missing_values_summary.csv
+│   ├── numerical_summary_statistics.csv
+│   ├── pairplot_top_features.png
+│   ├── target_distribution.csv
+│   ├── target_variable_distribution.png
+│   ├── top_2_feature_scatterplot.png
+│   ├── univariate_coolant_pressure.png
+│   ├── univariate_coolant_temp.png
+│   ├── univariate_engine_rpm.png
+│   ├── univariate_fuel_pressure.png
+│   ├── univariate_lub_oil_pressure.png
+│   ├── univariate_lub_oil_temp.png
+│   └── univariate_summary_with_outliers.csv
+├── model_artifacts
+│   ├── engine_condition_model.joblib
+│   ├── feature_columns.json
+│   ├── label_mapping.json
+│   └── README.md
+├── model_experiments
+│   ├── best_model_artifacts
+│   │   ├── all_model_tuning_results.csv
+│   │   ├── best_model.joblib
+│   │   ├── best_model_classification_report.csv
+│   │   ├── best_model_feature_importance.csv
+│   │   ├── best_model_metrics.json
+│   │   ├── best_model_params.json
+│   │   ├── feature_columns.json
+│   │   ├── model_comparison.csv
+│   │   ├── README.md
+│   │   └── requirements.txt
+│   ├── tuning_logs
+│   │   ├── adaboost_cv_results.csv
+│   │   ├── bagging_cv_results.csv
+│   │   ├── decision_tree_cv_results.csv
+│   │   ├── gradient_boosting_cv_results.csv
+│   │   ├── random_forest_cv_results.csv
+│   │   └── xgboost_cv_results.csv
+│   ├── all_model_tuning_results.csv
+│   ├── best_model_classification_report.csv
+│   ├── best_model_feature_importance.csv
+│   ├── decision_threshold.json
+│   └── model_comparison.csv
+├── prepared_data
+│   ├── split_summary.csv
+│   ├── test.csv
+│   └── train.csv
+├── reports
+│   ├── screenshots
+│   └── folder_structure.txt
+├── .gitignore
+└── README.md

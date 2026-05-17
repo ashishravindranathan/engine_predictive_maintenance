@@ -1,0 +1,3 @@
+Split,Rows,Percentage of Full Data,Normal Count (0),Faulty Count (1),Normal %,Faulty %
+Train,15628,80.0,5774,9854,36.95,63.05
+Test,3907,20.0,1444,2463,36.96,63.04
